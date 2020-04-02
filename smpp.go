@@ -8,6 +8,7 @@ import (
 	"net"
 	"strconv"
 	"sync"
+	"time"
 )
 
 var Debug bool
@@ -55,7 +56,7 @@ func NewSmppConnect(host string, port int) (*Smpp, error) {
 }
 
 func (s *Smpp) Connect(host string, port int) (err error) {
-	s.conn, err = net.Dial("tcp", host+":"+strconv.Itoa(port))
+	s.conn, err = net.DialTimeout("tcp", host+":"+strconv.Itoa(port), time.Second*15)
 
 	return err
 }
